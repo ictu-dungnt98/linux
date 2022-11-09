@@ -743,6 +743,15 @@
 				&edma 19 0>;
 			dma-names = "tx0", "rx0", "tx1", "rx1";
 			status = "disabled";
+
+            cs-gpios = <&gpio0 31 1>;
+            lcd0: lcd0 {
+                compatible = "spidev";
+                reg = <0>;
+                spi-max-frequency = <10000000>;
+                lcd-rs = <&gpio0 30 1>; /* P9_11*/
+                lcd-dc = <&gpio1 16 1>; /* P9_15*/
+            };
 		};
 
 		spi1: spi@481a0000 {
@@ -759,6 +768,18 @@
 				&edma 45 0>;
 			dma-names = "tx0", "rx0", "tx1", "rx1";
 			status = "disabled";
+
+            slave0: lcd0 {
+                compatible = "linux,spidev";
+                reg = <0>;
+                spi-max-frequency = <10000000>;
+            };
+
+            slave1: lcd1 {
+                compatible = "linux,spidev";
+                reg = <1>;
+                spi-max-frequency = <10000000>;
+            };
 		};
 
 		usb: usb@47400000 {
